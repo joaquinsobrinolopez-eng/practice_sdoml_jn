@@ -1,0 +1,84 @@
+practice\_sdoml package
+=======================
+
+
+General description
+-------------------
+This package implements the ML complete pipeline for diabetes risk prediction
+from tabular data
+
+Module componentes
+------------------
+
+* **practice_sdoml.modeling**: 
+  Subpaquete encargado de la arquitectura de la red neuronal en PyTorch (``SimpleNet``), 
+  el bucle de entrenamiento (``train``), la inferencia (``predict``) y la evaluación 
+  de métricas de rendimiento con exportación de figuras.
+
+* **practice_sdoml.config**: 
+  Define rutas absolutas del proyecto, carga variables de entorno y fija parámetros 
+  globales reproducibles.
+
+* **practice_sdoml.dataset**: 
+  Contiene los scripts y funciones para la descarga, lectura y transformación del 
+  archivo ``diabetes_risk.csv`` ubicado en ``data/raw/`` a tensores de PyTorch.
+
+* **practice_sdoml.features**: 
+  Funciones orientadas a la ingeniería de variables, preprocesamiento tabular, 
+  codificación de atributos categóricos y normalización de columnas numéricas.
+
+* **practice_sdoml.plots**: 
+  Módulo de utilidades gráficas para la generación visual de figuras, matrices 
+  de confusión, curvas de pérdida y diagramas de calibración.
+
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   practice_sdoml.modeling
+
+Submodules
+----------
+
+practice\_sdoml.config module
+-----------------------------
+
+.. automodule:: practice_sdoml.config
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+practice\_sdoml.dataset module
+------------------------------
+
+.. automodule:: practice_sdoml.dataset
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+practice\_sdoml.features module
+-------------------------------
+
+.. automodule:: practice_sdoml.features
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+practice\_sdoml.plots module
+----------------------------
+
+.. automodule:: practice_sdoml.plots
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: practice_sdoml
+   :members:
+   :undoc-members:
+   :show-inheritance:
