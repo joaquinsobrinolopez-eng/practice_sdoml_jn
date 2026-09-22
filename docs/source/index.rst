@@ -18,3 +18,12 @@ Indexes and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+Project Overview & Workflow
+===========================
+
+This project implements an end-to-end Machine Learning pipeline using PyTorch:
+
+* Data ingestion and preprocessing with one-hot encoding for tabular features.
+* Neural network architecture (SimpleNet) for supervised classification.
+* Model evaluation tracking loss curves, confusion matrices, and calibration reliability.
