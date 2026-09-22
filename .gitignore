@@ -190,3 +190,13 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 .aider*
+
+# Checkpoints and binary models
+models/*.pt
+models/*.pth
+models/*.joblib
+models/*.pkl
+
+# HTML documentation generated with sphinx
+docs/build/
+docs/_build/
