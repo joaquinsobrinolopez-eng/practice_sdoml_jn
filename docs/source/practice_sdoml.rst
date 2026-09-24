@@ -1,12 +1,6 @@
 practice\_sdoml package
 =======================
 
-
-General description
--------------------
-This package implements the ML complete pipeline for diabetes risk prediction
-from tabular data
-
 Subpackages
 -----------
 

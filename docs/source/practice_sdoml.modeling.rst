@@ -4,6 +4,14 @@ practice\_sdoml.modeling package
 Submodules
 ----------
 
+practice\_sdoml.modeling.evaluate module
+----------------------------------------
+
+.. automodule:: practice_sdoml.modeling.evaluate
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 practice\_sdoml.modeling.model module
 -------------------------------------
 

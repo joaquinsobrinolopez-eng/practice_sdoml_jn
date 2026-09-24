@@ -1,17 +1,15 @@
 """
-Principal package for practice_sdoml.
-
-It provides modelating, processing and ML utilities pipelines.
+Paquete principal de practice_sdoml.
 """
-
 from practice_sdoml import config
 from practice_sdoml import dataset
 from practice_sdoml import features
 from practice_sdoml import plots
 from practice_sdoml import modeling
 
+from practice_sdoml.dataset import DiabetesDataset, get_dataloader
 from practice_sdoml.modeling.model import SimpleNet
-from practice_sdoml.modeling.train import train, load_data
+from practice_sdoml.modeling.train import train
 
 __all__ = [
     "config",
@@ -19,7 +17,8 @@ __all__ = [
     "features",
     "plots",
     "modeling",
+    "DiabetesDataset",
+    "get_dataloader",
     "SimpleNet",
     "train",
-    "load_data",
 ]
