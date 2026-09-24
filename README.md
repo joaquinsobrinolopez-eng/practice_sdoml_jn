@@ -29,6 +29,26 @@ This project uses `uv` for lightning-fast dependency management and reproducibil
 3. Run the training script:
    `uv run python -m practice_sdoml.modeling.train`
 ```
+
+## Execution & usage instructions
+### Data exploration
+Inspect the exploration notebook with feature distributions and data observations:
+```bash
+jupyter lab notebooks/1_exploration.ipynb
+```
+
+### Model training
+Run the training loop and monitor the loss decrease:
+```bash
+uv run python -m practice_sdoml.modeling.train
+```
+
+### Performance evaluation & figures
+Compute evaluation metrics and generate report artifacts in `reports/figures/`:
+```bash
+uv run python -m practice_sdoml.modeling.evaluate
+```
+
 ## Documentation
 Sphinx HTML documentation is located in `docs/build/html/`.
 
@@ -37,6 +57,16 @@ To recompile the documentation:
 cd docs
 uv run sphinx-build -b html source build/html
 ```
+
+## Branch management & collaboration guides
+Contributions follow the standard feature branch workflow:
+
+1. Create a feature branch from: `main`: `git checkout -b feature/<feature-name>`.
+2. Make meaningful commits with clear messages.
+3. Merge back into `main` using explicit merge commits or pull requests.
+
+## License
+This project is licensed under the MIT License - see LICENSE file for details
 
 
 ## Members of the group
