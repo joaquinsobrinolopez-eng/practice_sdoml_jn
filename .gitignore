@@ -200,3 +200,5 @@ models/*.pkl
 # HTML documentation generated with sphinx
 docs/build/
 docs/_build/
+# Gradio temporary cache
+.gradio/

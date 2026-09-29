@@ -81,10 +81,28 @@ Contributions follow the standard feature branch workflow:
 ## License
 This project is licensed under the MIT License - see LICENSE file for details
 
+##  Interactive Demonstration & Deployment (Practice 4)
+
+This project includes a modular, interactive ML demonstration built with Gradio that provides:
+1. **Data Exploration:** Statistical summaries and interactive distribution plots of the dataset.
+2. **Training Interface:** Adjustable hyperparameters (epochs, learning rate, batch size) with live progress tracking (`gr.Progress()`) and loss evolution curves.
+3. **Model Evaluation:** Diagnostic tools including confusion matrices, calibration curves, and highest-loss sample analysis.
+
+### Running the Demo Locally
+
+Ensure dependencies are installed and run the application via `uv`:
+
+```bash
+# Option 1: Direct execution via uv
+uv run python app.py
+
+# Option 2: Using the CLI entry point
+uv run practice-demo
+```
 
 ## Members of the group
-Nemer Awwad
 Joaquín Sobrino López
+Nemer Awwad
 
 ## Project Organization
 
