@@ -251,4 +251,4 @@ with gr.Blocks(title="Practice 4: ML Interactive Demo") as demo:
             eval_button.click(run_evaluation, outputs=[eval_metrics, eval_cm, eval_cal, eval_loss])
 
 if __name__ == "__main__":
-    demo.launch(server_name="127.0.0.1", server_port=7860)
+    demo.launch(server_name="127.0.0.1", server_port=7860, inbrowser=True)
