@@ -12,6 +12,14 @@ Subpackages
 Submodules
 ----------
 
+practice\_sdoml.app module
+--------------------------
+
+.. automodule:: practice_sdoml.app
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 practice\_sdoml.config module
 -----------------------------
 

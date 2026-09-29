@@ -81,9 +81,28 @@ Contributions follow the standard feature branch workflow:
 ## License
 This project is licensed under the MIT License - see LICENSE file for details
 
-##  Interactive Demonstration & Deployment (Practice 4)
+##  Interactive Demonstration & Deployment 
 
-This project includes a modular, interactive ML demonstration built with Gradio that provides:
+This project is deployed and published as a modular package on **PyPI**: [`practice-sdoml-joaquin`](https://pypi.org/project/practice-sdoml-joaquin/).
+
+### Launching the Demo
+
+Anyone can launch the interactive Gradio demo immediately with zero configuration:
+
+```bash
+# Direct execution via uvx (from PyPI)
+uvx --refresh practice-sdoml-joaquin
+```
+
+Alternatively, run from a local checkout:
+```bash
+# Sync environment and run locally
+uv sync
+uv run python practice_sdoml/app.py
+```
+
+The application provides: 
+
 1. **Data Exploration:** Statistical summaries and interactive distribution plots of the dataset.
 2. **Training Interface:** Adjustable hyperparameters (epochs, learning rate, batch size) with live progress tracking (`gr.Progress()`) and loss evolution curves.
 3. **Model Evaluation:** Diagnostic tools including confusion matrices, calibration curves, and highest-loss sample analysis.
