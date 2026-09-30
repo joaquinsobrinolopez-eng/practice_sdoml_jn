@@ -1,5 +1,5 @@
 """
-Module for evaluate model and save the graphic reports.
+Model evaluation module with test set diagnostic figures export.
 """
 from pathlib import Path
 import numpy as np
@@ -19,12 +19,14 @@ def evaluate_and_generate_figures():
     reports_dir = Path(__file__).resolve().parents[2] / "reports" / "figures"
     reports_dir.mkdir(parents=True, exist_ok=True)
 
-    # Train over test split
+    # Train model on the 80% training split (12,000 samples)
     model = train(epochs=15)
     model.eval()
 
-    # Load test split
-    test_loader, _, num_classes = get_dataloader(batch_size=32, shuffle=False, split="test")
+    # Load exclusively the 20% test split (3,000 unseen samples)
+    test_loader, _, num_classes = get_dataloader(
+        batch_size=32, shuffle=False, split="test"
+    )
     print(f"--- Evaluating model on {len(test_loader.dataset)} test samples ---")
 
     all_preds, all_targets, all_probs, sample_losses = [], [], [], []
@@ -47,11 +49,11 @@ def evaluate_and_generate_figures():
     probs = np.array(all_probs)
     losses = np.array(sample_losses)
 
-    # Delegate to module plots
+    # Export diagnostic evaluation figures
     plot_confusion_matrix(targets, preds, reports_dir / "confusion_matrix.png")
     plot_top_loss_samples(losses, reports_dir / "top_loss_samples.png")
     plot_calibration_curve(targets, probs, num_classes, reports_dir / "calibration_curve.png")
-    print(f"Figuras generadas exitosamente en: {reports_dir}")
+    print(f"Figures successfully generated in: {reports_dir}")
 
 
 if __name__ == "__main__":

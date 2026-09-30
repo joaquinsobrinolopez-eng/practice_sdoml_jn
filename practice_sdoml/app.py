@@ -127,44 +127,56 @@ def train_interactive(epochs: int, lr: float, batch_size: int, progress=gr.Progr
 # 3. MODEL EVALUATION LOGIC
 # ==============================================================================
 def run_evaluation():
-    """Generate metrics and reuse functions from practice_sdoml.plots."""
-    loader, num_features, num_classes = get_dataloader(batch_size=32)
+    """
+    Evaluates SimpleNet exclusively on the 20% test partition (3,000 samples).
+    """
+    # 1. Training loader for quick convergence: 80% (12,000 samples)
+    train_loader, num_features, num_classes = get_dataloader(
+        batch_size=32, shuffle=True, split="train"
+    )
 
-    # Train a representative evaluation model
+    # 2. Evaluation loader: 20% (3,000 unseen samples)
+    test_loader, _, _ = get_dataloader(
+        batch_size=32, shuffle=False, split="test"
+    )
+
+    # Initialize model architecture and optimization criteria
     model = SimpleNet(input_dim=num_features, num_classes=num_classes)
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=0.005)
 
+    # Rapid fitting loop
     model.train()
     for _ in range(6):
-        for bx, by in loader:
+        for bx, by in train_loader:
             optimizer.zero_grad()
-            l = criterion(model(bx), by)
-            l.backward()
+            loss = criterion(model(bx), by)
+            loss.backward()
             optimizer.step()
 
+    # Inference loop strictly executed over test_loader
     model.eval()
     all_preds, all_targets, all_probs, sample_losses = [], [], [], []
     criterion_none = nn.CrossEntropyLoss(reduction="none")
 
     with torch.no_grad():
-        for bx, by in loader:
+        for bx, by in test_loader:
             outputs = model(bx)
             losses = criterion_none(outputs, by)
             probs = torch.softmax(outputs, dim=1)
             preds = torch.argmax(probs, dim=1)
 
-            sample_losses.extend(losses.numpy())
-            all_preds.extend(preds.numpy())
-            all_targets.extend(by.numpy())
-            all_probs.extend(probs.numpy())
+            sample_losses.extend(losses.cpu().numpy())
+            all_preds.extend(preds.cpu().numpy())
+            all_targets.extend(by.cpu().numpy())
+            all_probs.extend(probs.cpu().numpy())
 
     targets = np.array(all_targets)
     preds = np.array(all_preds)
     probs = np.array(all_probs)
     losses = np.array(sample_losses)
 
-    # Direct reuse of practice_sdoml.plots with temp files
+    # Generate diagnostic plots in isolated temporary storage
     with tempfile.TemporaryDirectory() as tmp_dir:
         tmp_path = Path(tmp_dir)
         cm_path = tmp_path / "cm.png"
@@ -179,10 +191,12 @@ def run_evaluation():
         cal_img = plt.imread(str(cal_path))
         loss_img = plt.imread(str(loss_path))
 
-    accuracy = np.mean(targets == preds) * 100
-    metrics_text = f"**Overall Accuracy:** {accuracy:.2f}% | **Evaluated Samples:** {len(targets)}"
+    accuracy = float(np.mean(targets == preds)) * 100
+    metrics_text = (
+        f"**Test Accuracy:** {accuracy:.2f}% | "
+        f"**Evaluated Test Samples:** {len(targets)}"
+    )
     return metrics_text, cm_img, cal_img, loss_img
-
 
 # ==============================================================================
 # GRADIO APPLICATION LAYOUT
