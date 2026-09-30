@@ -77,7 +77,7 @@ def generate_feature_plot(feature_name: str):
 def train_interactive(epochs: int, lr: float, batch_size: int, progress=gr.Progress()):
     """Train SimpleNet uploading Gradio loading bar"""
     progress(0, desc="Preparing DataLoader...")
-    loader, num_features, num_classes = get_dataloader(batch_size=int(batch_size))
+    loader, num_features, num_classes = get_dataloader(batch_size=32, shuffle=False, split="test")
 
     model = SimpleNet(input_dim=num_features, num_classes=num_classes)
     criterion = nn.CrossEntropyLoss()

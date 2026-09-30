@@ -17,16 +17,21 @@ from practice_sdoml.plots import (
 
 def evaluate_and_generate_figures():
     reports_dir = Path(__file__).resolve().parents[2] / "reports" / "figures"
-    train_loader, _, num_classes = get_dataloader(batch_size=32)
+    reports_dir.mkdir(parents=True, exist_ok=True)
 
+    # Train over test split
     model = train(epochs=15)
     model.eval()
+
+    # Load test split
+    test_loader, _, num_classes = get_dataloader(batch_size=32, shuffle=False, split="test")
+    print(f"--- Evaluating model on {len(test_loader.dataset)} test samples ---")
 
     all_preds, all_targets, all_probs, sample_losses = [], [], [], []
     criterion_none = nn.CrossEntropyLoss(reduction="none")
 
     with torch.no_grad():
-        for batch_x, batch_y in train_loader:
+        for batch_x, batch_y in test_loader:
             outputs = model(batch_x)
             losses = criterion_none(outputs, batch_y)
             probs = torch.softmax(outputs, dim=1)
@@ -42,11 +47,11 @@ def evaluate_and_generate_figures():
     probs = np.array(all_probs)
     losses = np.array(sample_losses)
 
-    # Delegación de trazado al módulo plots
+    # Delegate to module plots
     plot_confusion_matrix(targets, preds, reports_dir / "confusion_matrix.png")
     plot_top_loss_samples(losses, reports_dir / "top_loss_samples.png")
     plot_calibration_curve(targets, probs, num_classes, reports_dir / "calibration_curve.png")
-    print(f"Figures generated in: {reports_dir}")
+    print(f"Figuras generadas exitosamente en: {reports_dir}")
 
 
 if __name__ == "__main__":

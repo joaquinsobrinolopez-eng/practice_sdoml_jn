@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "practice-sdoml-joaquin"
-version = "0.1.2"
+version = "0.1.3"
 description = "Interactive ML demo for diabetes risk classification"
 readme = "README.md"
 requires-python = ">=3.10"

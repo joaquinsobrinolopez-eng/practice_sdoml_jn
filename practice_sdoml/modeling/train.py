@@ -13,7 +13,7 @@ def train(epochs: int = 3, lr: float = 0.001):
     """
     Trains SimpleNet model using provided data by DiabetesDataset
     """
-    train_loader, num_features, num_classes = get_dataloader(batch_size=32)
+    train_loader, num_features, num_classes = get_dataloader(batch_size=32, shuffle=True, split="train")
 
     model = SimpleNet(input_dim=num_features, num_classes=num_classes)
     criterion = nn.CrossEntropyLoss()
