@@ -126,53 +126,63 @@ Nemer Awwad
 ## Project Organization
 
 ```
-├── LICENSE            <- Open-source license if one is chosen
-├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
-├── README.md          <- The top-level README for developers using this project.
+├── .github
+│   └── workflows
+│       └── deploy-docs.yml     <- CI/CD pipeline to automatically build and deploy Sphinx docs to GitHub Pages
+├── .gitignore                  <- Excludes bytecode, virtual environments (.venv), data, and checkpoints
+├── LICENSE                     <- Project open-source license (MIT)
+├── Makefile                    <- Convenience commands for environment setup, training, and building docs
+├── README.md                   <- Comprehensive project documentation, installation steps, and usage guides
+├── pyproject.toml              <- Project metadata, dependencies, build settings (flit), and CLI entry points
+├── uv.lock                     <- Pinned dependency lockfile managed by uv for guaranteed reproducibility
+├── setup.cfg                   <- Configuration file for code linting tools (e.g., flake8)
+│
 ├── data
-│   ├── external       <- Data from third party sources.
-│   ├── interim        <- Intermediate data that has been transformed.
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump (diabetes_risk.csv)
+│   ├── external                <- Data from third-party sources
+│   ├── interim                 <- Intermediate transformed data
+│   ├── processed               <- Final canonical datasets for modeling
+│   └── raw
+│       └── diabetes_risk.csv   <- Original, immutable dataset dump
 │
-├── docs               <- A default mkdocs project; see www.mkdocs.org for details
+├── docs
+│   ├── Makefile                <- Build script for Sphinx documentation
+│   ├── make.bat                <- Windows batch file for Sphinx commands
+│   ├── source                  <- Sphinx source files, API declarations, and configuration
+│   │   ├── conf.py             <- Sphinx configuration file
+│   │   ├── index.rst           <- Root documentation index and table of contents
+│   │   ├── modules.rst         <- Auto-generated module reference index
+│   │   ├── practice_sdoml.rst  <- Package autodoc specification
+│   │   └── practice_sdoml.modeling.rst <- Modeling subpackage autodoc specification
+│   └── build                   <- Compiled static HTML documentation (excluded from version control)
 │
-├── models             <- Trained and serialized models, model predictions, or model summaries
+├── models                      <- Serialized model weights, PyTorch checkpoints (.pt/.pth), or exports
 │
-├── notebooks          <- Jupyter notebooks. 
-│   └── 1_exploration.ipynb   <- Jupyter notebook in which data exploration is done
-│   └── 2_evaluation.ipynb   <- Jupyter notebook in which data evaluation is done
-|
-├── pyproject.toml     <- Project configuration file with package metadata for 
-│                         practice_sdoml and configuration for tools like black
+├── notebooks
+│   ├── 1_exploration.ipynb     <- Exploratory data analysis (EDA) with feature distributions and plots
+│   └── 2_evaluation.ipynb      <- Interactive evaluation notebook
 │
-├── references         <- Data dictionaries, manuals, and all other explanatory materials.
+├── references                  <- Data dictionaries, documentation guides, and reference material
 │
-├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures        <- Generated graphics and figures to be used in reporting
+├── reports
+│   ├── 1_exploration.html      <- Exported analysis reports
+│   └── figures                 <- Generated graphic figures exported for reporting
+│       ├── calibration_curve.png <- Reliability calibration diagram
+│       ├── confusion_matrix.png  <- Multi-class / binary confusion matrix
+│       └── top_loss_samples.png  <- Visualization of samples with the highest prediction error
 │
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
-│
-├── setup.cfg          <- Configuration file for flake8
-│
-└── practice_sdoml   <- Source code for use in this project.
-    │
-    ├── __init__.py             <- Makes practice_sdoml a Python module
-    │
-    ├── config.py               <- Store useful variables and configuration
-    │
-    ├── dataset.py              <- Scripts to download or generate data
-    │
-    ├── features.py             <- Code to create features for modeling
-    │
-    ├── modeling                
-    │   ├── __init__.py 
-    │   ├── model.py            <- Code in which the neural network for the prediction is showed
-    │   ├── predict.py          <- Code to run model inference with trained models          
-    │   └── train.py            <- Code to train models
-    │
-    └── plots.py                <- Code to create visualizations
+└── practice_sdoml              <- Core source code package
+    ├── __init__.py             <- Package initializer exposing key classes (DiabetesDataset, SimpleNet, train)
+    ├── app.py                  <- Interactive Gradio application (Data Exploration, Training, Evaluation)
+    ├── config.py               <- Project path definitions and environment configuration (loguru, dotenv)
+    ├── dataset.py              <- Custom PyTorch DiabetesDataset class and get_dataloader utilities
+    ├── features.py             <- Feature engineering and tabular preprocessing logic
+    ├── plots.py                <- Standalone plotting functions (confusion matrix, calibration, top losses)
+    └── modeling
+        ├── __init__.py         <- Modeling module initializer
+        ├── model.py            <- Neural network architecture definition (SimpleNet)
+        ├── predict.py          <- Model inference logic for new observations
+        ├── train.py            <- PyTorch training loop with loss reporting and optimization
+        └── evaluate.py         <- Evaluation pipeline that computes metrics and saves report figures
 ```
 
 --------
