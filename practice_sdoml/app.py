@@ -29,23 +29,28 @@ sns.set_theme(style="whitegrid")
 # 1. DATA EXPLORATION LOGIC
 # ==============================================================================
 def load_dataset_sample():
-    """Load data in an automatic way"""
-    try:
-        dataset = DiabetesDataset()
-        df = pd.read_csv(dataset.csv_path)
-    except Exception:
-        # If it does not found the original CSV
-        np.random.seed(42)
-        df = pd.DataFrame(
-            {
-                "Age": np.random.randint(20, 80, size=200),
-                "BloodPressure": np.random.randint(60, 140, size=200),
-                "Glucose": np.random.randint(70, 200, size=200),
-                "BMI": np.random.uniform(18.0, 40.0, size=200),
-                "Outcome": np.random.choice([0, 1], size=200),
-            }
-        )
-    return df
+    """
+    Loads exploratory dataset sample prioritizing packaged real data.
+    """
+    pkg_data_path = Path(__file__).resolve().parent / "data" / "diabetes_risk.csv"
+    repo_data_path = Path(__file__).resolve().parents[1] / "data" / "raw" / "diabetes_risk.csv"
+
+    if pkg_data_path.exists():
+        return pd.read_csv(pkg_data_path)
+    elif repo_data_path.exists():
+        return pd.read_csv(repo_data_path)
+
+    # Fallback synthetic dataset
+    np.random.seed(42)
+    return pd.DataFrame(
+        {
+            "Age": np.random.randint(20, 80, size=200),
+            "BloodPressure": np.random.randint(60, 140, size=200),
+            "Glucose": np.random.randint(70, 200, size=200),
+            "BMI": np.random.uniform(18.0, 40.0, size=200),
+            "Outcome": np.random.choice([0, 1], size=200),
+        }
+    )
 
 
 def get_data_summary():
